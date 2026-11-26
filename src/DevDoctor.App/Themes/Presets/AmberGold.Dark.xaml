@@ -1,0 +1,27 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <SolidColorBrush x:Key="WindowBrush" Color="#17120E" />
+  <SolidColorBrush x:Key="SidebarBrush" Color="#211A14" />
+  <SolidColorBrush x:Key="SurfaceBrush" Color="#2A2118" />
+  <SolidColorBrush x:Key="RaisedBrush" Color="#31281D" />
+  <SolidColorBrush x:Key="HoverBrush" Color="#443524" />
+  <SolidColorBrush x:Key="BorderBrush" Color="#5E4832" />
+  <SolidColorBrush x:Key="TextBrush" Color="#FFF0DB" />
+  <SolidColorBrush x:Key="MutedBrush" Color="#D5BDA0" />
+  <SolidColorBrush x:Key="FaintBrush" Color="#CBB18F" />
+  <SolidColorBrush x:Key="AccentBrush" Color="#E8BA72" />
+  <SolidColorBrush x:Key="PrimaryBackground" Color="#DEB16C" />
+  <SolidColorBrush x:Key="PrimaryForeground" Color="#2F210F" />
+  <SolidColorBrush x:Key="CodeBrush" Color="#1D1711" />
+  <SolidColorBrush x:Key="HeaderBrush" Color="#21190F" />
+  <SolidColorBrush x:Key="AccentBackground" Color="#443524" />
+  <SolidColorBrush x:Key="CyanBrush" Color="#77D9E3" />
+  <SolidColorBrush x:Key="PurpleBrush" Color="#C9A7FF" />
+  <LinearGradientBrush x:Key="HeroBrush" StartPoint="0,0" EndPoint="0,1">
+    <GradientStop Color="#3A2B15" Offset="0" />
+    <GradientStop Color="#32251A" Offset="0.55" />
+    <GradientStop Color="#422F20" Offset="1" />
+  </LinearGradientBrush>
+  <LinearGradientBrush x:Key="BrandBrush" StartPoint="0,0" EndPoint="1,1"><GradientStop Color="#E8BA72" Offset="0" /><GradientStop Color="#DEB16C" Offset="1" /></LinearGradientBrush>
+  <Geometry x:Key="HeroDecorationGeometry">M 200,14 A 90,90 0 1 0 200,194 A 90,90 0 1 0 200,14 M 200,34 A 70,70 0 1 1 200,174 A 70,70 0 1 1 200,34 Z M 200,54 A 50,50 0 1 0 200,154 A 50,50 0 1 0 200,54 M 200,67 A 37,37 0 1 1 200,141 A 37,37 0 1 1 200,67 Z</Geometry>
+  <SolidColorBrush x:Key="HeroDecorationBrush" Color="#E8BA72" Opacity=".17" />
+</ResourceDictionary>

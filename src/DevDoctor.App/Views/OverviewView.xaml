@@ -1,0 +1,45 @@
+<UserControl x:Class="DevDoctor.App.Views.OverviewView" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ui="clr-namespace:DevDoctor.Core;assembly=DevDoctor.Core">
+  <StackPanel>
+    <Border Style="{StaticResource HeroCard}" Margin="{DynamicResource RowSpacing}">
+      <Grid><Path Style="{StaticResource HeroDecoration}" /><StackPanel>
+        <TextBlock Text="环境诊断 / 本地环境体检" Style="{StaticResource Eyebrow}" />
+        <TextBlock Text="{Binding Headline}" FontSize="29" FontWeight="SemiBold" LineHeight="42" />
+        <TextBlock Text="核对工具版本、命令入口与环境变量。以真实证据定位问题，由你决定如何调整。" Style="{StaticResource MutedText}" Margin="0,8,0,20" />
+        <ProgressBar Value="{Binding ProgressPercent, Mode=OneWay}" Maximum="100" AutomationProperties.Name="诊断进度" />
+        <WrapPanel Margin="0,10,0,0"><TextBlock Text="{Binding ScanMessage}" FontSize="12" Margin="0,0,18,0" /><TextBlock Text="{Binding ScanElapsedText}" FontSize="11" Foreground="{DynamicResource MutedBrush}" Margin="0,0,18,0" /><TextBlock Text="{Binding LastScanText}" FontSize="11" Foreground="{DynamicResource FaintBrush}" /></WrapPanel>
+        <TextBlock Text="{Binding ScanPhase}" FontSize="11" Foreground="{DynamicResource MutedBrush}" Margin="0,5,0,0" />
+        <Button Content="查看本次保存的历史与证据  →" Command="{Binding ViewSavedHistoryCommand}" Visibility="{Binding HasSavedHistory, Converter={StaticResource BoolVisibility}}" Style="{StaticResource LinkButton}" HorizontalAlignment="Left" Margin="0,7,0,0" />
+      </StackPanel></Grid>
+    </Border>
+    <UniformGrid Columns="3" Margin="0,0,-12,0">
+      <Border Style="{StaticResource Card}" Margin="0,0,12,12" Padding="{DynamicResource DenseCardPadding}"><StackPanel><TextBlock Text="正常模块" Style="{StaticResource MutedText}" /><TextBlock Text="{Binding NormalCount}" FontSize="31" FontWeight="SemiBold" LineHeight="43" Foreground="{DynamicResource SuccessBrush}" /><TextBlock Text="基础检查通过" FontSize="11" Foreground="{DynamicResource FaintBrush}" /></StackPanel></Border>
+      <Border Style="{StaticResource Card}" Margin="0,0,12,12" Padding="{DynamicResource DenseCardPadding}"><StackPanel><TextBlock Text="警告模块" Style="{StaticResource MutedText}" /><TextBlock Text="{Binding WarningCount}" FontSize="31" FontWeight="SemiBold" LineHeight="43" Foreground="{DynamicResource WarningBrush}" /><TextBlock Text="建议进一步核对" FontSize="11" Foreground="{DynamicResource FaintBrush}" /></StackPanel></Border>
+      <Border Style="{StaticResource Card}" Margin="0,0,12,12" Padding="{DynamicResource DenseCardPadding}"><StackPanel><TextBlock Text="异常模块" Style="{StaticResource MutedText}" /><TextBlock Text="{Binding ErrorCount}" FontSize="31" FontWeight="SemiBold" LineHeight="43" Foreground="{DynamicResource ErrorBrush}" /><TextBlock Text="实际命令运行失败" FontSize="11" Foreground="{DynamicResource FaintBrush}" /></StackPanel></Border>
+    </UniformGrid>
+    <TextBlock Text="{Binding SecondaryStatesText}" Style="{StaticResource MutedText}" Margin="2,0,0,22" />
+    <TextBlock Text="{x:Static ui:UiText.ToolsTitle}" Style="{StaticResource SectionTitle}" /><TextBlock Text="点击卡片查看版本、受检路径和逐条证据。未检测项不会显示为通过。" Style="{StaticResource MutedText}" Margin="0,0,0,15" />
+    <ItemsControl ItemsSource="{Binding ToolModules}" x:Name="ToolsList">
+      <ItemsControl.ItemsPanel><ItemsPanelTemplate><WrapPanel /></ItemsPanelTemplate></ItemsControl.ItemsPanel>
+      <ItemsControl.ItemTemplate><DataTemplate>
+        <Button Style="{StaticResource ToolCard}" Width="{Binding ActualWidth, ElementName=ToolsList, Converter={StaticResource CardWidth}}" MinHeight="{DynamicResource ToolCardMinHeight}" Margin="{DynamicResource ItemSpacing}" Command="{Binding DataContext.SelectModuleCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}" CommandParameter="{Binding}" AutomationProperties.Name="{Binding Name}">
+          <StackPanel>
+            <DockPanel Margin="0,0,0,14"><ContentControl DockPanel.Dock="Right" Content="{Binding}" ContentTemplate="{StaticResource StatusTemplate}" VerticalAlignment="Top" /><Border Width="39" Height="39" Background="{DynamicResource AccentBackground}" CornerRadius="{DynamicResource SmallRadius}" HorizontalAlignment="Left"><TextBlock Text="{Binding Monogram}" FontSize="17" FontFamily="Segoe UI" FontWeight="SemiBold" Foreground="{DynamicResource AccentBrush}" HorizontalAlignment="Center" VerticalAlignment="Center" /></Border></DockPanel>
+            <TextBlock Text="{Binding Name}" FontSize="18" FontWeight="SemiBold" /><TextBlock Text="{Binding VersionText}" FontSize="13" Foreground="{DynamicResource AccentBrush}" Margin="0,5,0,7" />
+            <TextBlock Text="{Binding Summary}" Style="{StaticResource MutedText}" MaxHeight="66" TextTrimming="CharacterEllipsis" />
+            <TextBlock Text="查看检测详情  →" FontSize="11" Foreground="{DynamicResource FaintBrush}" Margin="0,14,0,0" />
+          </StackPanel>
+        </Button>
+      </DataTemplate></ItemsControl.ItemTemplate>
+    </ItemsControl>
+    <Border Style="{StaticResource Card}" Margin="0,10,0,22" Padding="{DynamicResource DenseCardPadding}">
+      <StackPanel><TextBlock Text="PATH 与环境变量" FontSize="17" FontWeight="SemiBold" /><TextBlock Text="{Binding EnvironmentModule.Summary}" Style="{StaticResource MutedText}" Margin="0,7,0,4" />
+        <Button Content="查看环境检查  →" Command="{Binding NavigateCommand}" CommandParameter="Environment" Style="{StaticResource LinkButton}" HorizontalAlignment="Left" />
+      </StackPanel>
+    </Border>
+    <DockPanel><Button DockPanel.Dock="Right" Content="全部问题  →" Command="{Binding NavigateCommand}" CommandParameter="Issues" Style="{StaticResource LinkButton}" /><TextBlock Text="需要关注" Style="{StaticResource SectionTitle}" /></DockPanel>
+    <TextBlock Text="{Binding IssuesCaption}" Style="{StaticResource MutedText}" Margin="0,0,0,12" />
+    <ItemsControl ItemsSource="{Binding ImportantIssues}"><ItemsControl.ItemTemplate><DataTemplate>
+      <Border Style="{StaticResource Card}" Padding="{DynamicResource DenseCardPadding}" Margin="{DynamicResource RowSpacing}"><StackPanel><WrapPanel><TextBlock Text="{Binding ModuleName}" Foreground="{DynamicResource AccentBrush}" FontSize="12" Margin="0,0,12,0" /><ContentControl Content="{Binding}" ContentTemplate="{StaticResource StatusTemplate}" /></WrapPanel><TextBlock Text="{Binding Title}" FontWeight="SemiBold" Margin="0,8,0,4" /><TextBlock Text="{Binding Observed}" Style="{StaticResource MutedText}" /><Button Content="查看问题与处理指南  →" Command="{Binding DataContext.ShowFindingCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding}" Style="{StaticResource LinkButton}" HorizontalAlignment="Left" Margin="0,7,0,0" /></StackPanel></Border>
+    </DataTemplate></ItemsControl.ItemTemplate></ItemsControl>
+  </StackPanel>
+</UserControl>

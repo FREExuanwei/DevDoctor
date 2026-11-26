@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <UseWPF>true</UseWPF>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>../../installer/assets/DevDoctor.ico</ApplicationIcon>
+    <AssemblyName>DevDoctor</AssemblyName>
+    <RootNamespace>DevDoctor.App</RootNamespace>
+    <PlatformTarget>x64</PlatformTarget>
+    <RuntimeFrameworkVersion Condition="'$(SelfContained)' == 'true'">10.0.15</RuntimeFrameworkVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../DevDoctor.Core/DevDoctor.Core.csproj" />
+    <ProjectReference Include="../DevDoctor.Diagnostics/DevDoctor.Diagnostics.csproj" />
+    <ProjectReference Include="../DevDoctor.Infrastructure/DevDoctor.Infrastructure.csproj" />
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.0" />
+  </ItemGroup>
+</Project>

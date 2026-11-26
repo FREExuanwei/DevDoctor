@@ -1,0 +1,26 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:sys="clr-namespace:System;assembly=mscorlib">
+  <CornerRadius x:Key="CardRadius">24</CornerRadius>
+  <CornerRadius x:Key="ControlRadius">14</CornerRadius>
+  <CornerRadius x:Key="HeroRadius">26</CornerRadius>
+  <CornerRadius x:Key="SmallRadius">10</CornerRadius>
+  <Thickness x:Key="CardPadding">29</Thickness>
+  <Thickness x:Key="DenseCardPadding">25,21</Thickness>
+  <Thickness x:Key="HeroPadding">34,31</Thickness>
+  <Thickness x:Key="ButtonPadding">18,12</Thickness>
+  <Thickness x:Key="ControlPadding">16,11</Thickness>
+  <Thickness x:Key="NavPadding">16,15</Thickness>
+  <Thickness x:Key="PagePadding">34,8,30,32</Thickness>
+  <Thickness x:Key="PageHeaderMargin">34,24,30,16</Thickness>
+  <Thickness x:Key="SidebarMargin">16,28,16,20</Thickness>
+  <Thickness x:Key="ToolCardPadding">27</Thickness>
+  <Thickness x:Key="ItemSpacing">0,0,16,18</Thickness>
+  <Thickness x:Key="RowSpacing">0,0,0,18</Thickness>
+  <sys:Double x:Key="ControlMinHeight">46</sys:Double>
+  <sys:Double x:Key="ToolCardMinHeight">232</sys:Double>
+  <sys:Double x:Key="BodyFontSize">14</sys:Double>
+  <sys:Double x:Key="BodyLineHeight">24</sys:Double>
+  <GridLength x:Key="SidebarWidth">210</GridLength>
+  <sys:Double x:Key="TitleFontSize">29</sys:Double>
+  <DropShadowEffect x:Key="CardShadow" Color="#151126" BlurRadius="22" ShadowDepth="5" Opacity=".18" RenderingBias="Performance" />
+  <Thickness x:Key="SelectionPadding">16,11,34,11</Thickness>
+</ResourceDictionary>

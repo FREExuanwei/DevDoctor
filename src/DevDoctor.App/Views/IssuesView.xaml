@@ -1,0 +1,20 @@
+<UserControl x:Class="DevDoctor.App.Views.IssuesView" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="clr-namespace:DevDoctor.App.Views">
+  <UserControl.Resources><local:FindingSelectionConverter x:Key="IsFocusedFinding" /></UserControl.Resources>
+  <StackPanel><TextBlock Text="先看证据，再做调整。" FontSize="27" LineHeight="38" FontWeight="SemiBold" /><TextBlock Text="{Binding IssuesCaption}" Style="{StaticResource MutedText}" Margin="0,8,0,20" />
+    <Border Style="{StaticResource Card}" Margin="{DynamicResource RowSpacing}" Padding="{DynamicResource DenseCardPadding}"><StackPanel>
+      <WrapPanel><StackPanel Margin="0,0,12,10"><TextBlock Text="优先级" Margin="0,0,0,5" /><ComboBox ItemsSource="{Binding IssuePriorityOptions}" DisplayMemberPath="Label" SelectedValuePath="Value" SelectedValue="{Binding IssuePriorityFilter}" MinWidth="165" AutomationProperties.Name="问题优先级筛选" /></StackPanel><StackPanel Margin="0,0,12,10"><TextBlock Text="检测对象" Margin="0,0,0,5" /><ComboBox ItemsSource="{Binding IssueModuleOptions}" DisplayMemberPath="Label" SelectedValuePath="Value" SelectedValue="{Binding IssueModuleFilter}" MinWidth="155" AutomationProperties.Name="问题检测对象筛选" /></StackPanel><StackPanel Margin="0,0,0,10"><TextBlock Text="检测状态" Margin="0,0,0,5" /><ComboBox ItemsSource="{Binding IssueStatusOptions}" DisplayMemberPath="Label" SelectedValuePath="Value" SelectedValue="{Binding IssueStatusFilter}" MinWidth="155" AutomationProperties.Name="问题检测状态筛选" /></StackPanel></WrapPanel>
+      <TextBlock Text="{Binding FilteredIssuesCaption}" Style="{StaticResource MutedText}" />
+    </StackPanel></Border>
+    <Border Style="{StaticResource Card}" Visibility="{Binding HasVisibleIssues, Converter={StaticResource BoolVisibility}, ConverterParameter=Not}" Margin="{DynamicResource RowSpacing}"><StackPanel><TextBlock Text="当前筛选没有条目" Style="{StaticResource SectionTitle}" /><TextBlock Text="可以调整筛选，或开始诊断。尚未检测不代表环境正常；无法确认也不会当作问题已解决。" Style="{StaticResource MutedText}" /></StackPanel></Border>
+    <ItemsControl x:Name="IssueItems" ItemsSource="{Binding VisibleIssues}">
+      <ItemsControl.ItemContainerStyle><Style TargetType="ContentPresenter"><Setter Property="Focusable" Value="True" /><Setter Property="AutomationProperties.Name" Value="{Binding Title}" /></Style></ItemsControl.ItemContainerStyle>
+      <ItemsControl.ItemTemplate><DataTemplate>
+        <Border CornerRadius="{DynamicResource CardRadius}" Padding="2" BorderThickness="2" Margin="0,0,0,4">
+          <Border.Style><Style TargetType="Border"><Setter Property="BorderBrush" Value="Transparent" /><Style.Triggers><DataTrigger Value="True"><DataTrigger.Binding><MultiBinding Converter="{StaticResource IsFocusedFinding}"><Binding /><Binding Path="DataContext.FocusedFinding" RelativeSource="{RelativeSource AncestorType=UserControl}" /></MultiBinding></DataTrigger.Binding><Setter Property="BorderBrush" Value="{DynamicResource AccentBrush}" /></DataTrigger></Style.Triggers></Style></Border.Style>
+          <ContentControl Content="{Binding}" ContentTemplate="{StaticResource FindingCard}" />
+        </Border>
+      </DataTemplate></ItemsControl.ItemTemplate>
+    </ItemsControl>
+    <Border Background="{DynamicResource AccentBackground}" CornerRadius="{DynamicResource ControlRadius}" Padding="18"><TextBlock Text="DevDoctor 只提供人工排查建议，不会自动执行命令、修改环境变量、安装工具或调整系统安全策略。" Style="{StaticResource MutedText}" /></Border>
+  </StackPanel>
+</UserControl>

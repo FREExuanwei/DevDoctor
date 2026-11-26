@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms</value></resheader>
+  <data name="Theme.FluentBlue" xml:space="preserve"><value>清爽蓝</value></data>
+  <data name="Theme.Midnight" xml:space="preserve"><value>午夜蓝黑</value></data>
+  <data name="Theme.Aurora" xml:space="preserve"><value>极光紫青</value></data>
+  <data name="Theme.AmberGold" xml:space="preserve"><value>琥珀暖金</value></data>
+  <data name="Theme.CrimsonObsidian" xml:space="preserve"><value>绯红曜石</value></data>
+  <data name="Theme.RoseLavender" xml:space="preserve"><value>玫瑰薰衣草</value></data>
+  <data name="ThemeDescription.FluentBlue" xml:space="preserve"><value>清爽蓝白 · 现代工作区</value></data>
+  <data name="ThemeDescription.Midnight" xml:space="preserve"><value>午夜蓝黑 · 克制的秩序</value></data>
+  <data name="ThemeDescription.Aurora" xml:space="preserve"><value>极光紫青 · 光带与渐变</value></data>
+  <data name="ThemeDescription.AmberGold" xml:space="preserve"><value>琥珀暖金 · 温润纸感</value></data>
+  <data name="ThemeDescription.CrimsonObsidian" xml:space="preserve"><value>绯红曜石 · 石墨与切面</value></data>
+  <data name="ThemeDescription.RoseLavender" xml:space="preserve"><value>玫瑰薰衣草 · 柔和层次</value></data>
+  <data name="Style.FluentProfessional" xml:space="preserve"><value>专业标准</value></data>
+  <data name="Style.SoftCards" xml:space="preserve"><value>柔和卡片</value></data>
+  <data name="Style.CompactPro" xml:space="preserve"><value>紧凑高效</value></data>
+  <data name="StyleDescription.FluentProfessional" xml:space="preserve"><value>布局清晰、层次分明，适合日常开发诊断。</value></data>
+  <data name="StyleDescription.SoftCards" xml:space="preserve"><value>圆角卡片、舒适间距与柔和阴影，强调视觉层次。</value></data>
+  <data name="StyleDescription.CompactPro" xml:space="preserve"><value>减少多余留白、提高信息密度，适合快速查看大量结果。</value></data>
+  <data name="QuickStyle.FluentProfessional" xml:space="preserve"><value>快捷专业标准风格</value></data>
+  <data name="QuickStyle.SoftCards" xml:space="preserve"><value>快捷柔和卡片风格</value></data>
+  <data name="QuickStyle.CompactPro" xml:space="preserve"><value>快捷紧凑高效风格</value></data>
+  <data name="Mode.Light" xml:space="preserve"><value>浅色</value></data>
+  <data name="Mode.Dark" xml:space="preserve"><value>深色</value></data>
+  <data name="Mode.System" xml:space="preserve"><value>跟随系统</value></data>
+  <data name="Appearance.Ready" xml:space="preserve"><value>外观即时应用并自动保存到本机。</value></data>
+  <data name="Appearance.Saving" xml:space="preserve"><value>正在保存外观…</value></data>
+  <data name="Appearance.Saved" xml:space="preserve"><value>外观已自动保存 · 下次启动时恢复。</value></data>
+  <data name="Appearance.SaveFailed" xml:space="preserve"><value>外观保存失败：文件不可写或选项无效。当前会话仍可使用；可点击保存设置重试。</value></data>
+  <data name="Appearance.FollowingSystem" xml:space="preserve"><value> · 正在跟随 Windows</value></data>
+  <data name="Appearance.Manual" xml:space="preserve"><value> · 手动选择</value></data>
+  <data name="Appearance.Palette" xml:space="preserve"><value>配色主题</value></data>
+  <data name="Appearance.Mode" xml:space="preserve"><value>显示模式</value></data>
+  <data name="Appearance.Style" xml:space="preserve"><value>界面风格</value></data>
+  <data name="Appearance.StyleOverview" xml:space="preserve"><value>专业标准保持适度留白；柔和卡片使用大圆角与柔和阴影；紧凑高效减少控件、卡片与行间留白。</value></data>
+  <data name="Project.Maven" xml:space="preserve"><value>Maven</value></data>
+  <data name="Project.Gradle" xml:space="preserve"><value>Gradle</value></data>
+  <data name="Project.Node" xml:space="preserve"><value>Node.js</value></data>
+  <data name="Project.Python" xml:space="preserve"><value>Python</value></data>
+  <data name="Project.CMake" xml:space="preserve"><value>CMake</value></data>
+  <data name="Project.Dotnet" xml:space="preserve"><value>.NET</value></data>
+  <data name="Tool.java" xml:space="preserve"><value>Java</value></data>
+  <data name="Tool.node" xml:space="preserve"><value>Node.js</value></data>
+  <data name="Tool.dotnet" xml:space="preserve"><value>.NET</value></data>
+  <data name="Tool.maven" xml:space="preserve"><value>Maven</value></data>
+  <data name="Tool.gradle" xml:space="preserve"><value>Gradle</value></data>
+  <data name="Tool.python" xml:space="preserve"><value>Python</value></data>
+  <data name="Tool.cmake" xml:space="preserve"><value>CMake</value></data>
+  <data name="Tool.visualstudio" xml:space="preserve"><value>Visual Studio / MSVC</value></data>
+  <data name="Tool.compiler" xml:space="preserve"><value>编译器</value></data>
+  <data name="Evidence.GradleJvm" xml:space="preserve"><value>Gradle 与 JVM 兼容性</value></data>
+  <data name="Evidence.PresetsSchema" xml:space="preserve"><value>预设格式版本</value></data>
+  <data name="Evidence.PresetsInclude" xml:space="preserve"><value>预设引用</value></data>
+  <data name="ScanKind.Environment" xml:space="preserve"><value>环境诊断</value></data>
+  <data name="ScanKind.Project" xml:space="preserve"><value>项目诊断</value></data>
+  <data name="Completion.Completed" xml:space="preserve"><value>已完成</value></data>
+  <data name="Completion.Cancelled" xml:space="preserve"><value>已取消</value></data>
+  <data name="Completion.Failed" xml:space="preserve"><value>未完成</value></data>
+  <data name="Coverage.Complete" xml:space="preserve"><value>完整检查</value></data>
+  <data name="Coverage.Partial" xml:space="preserve"><value>部分检查</value></data>
+  <data name="Coverage.NotChecked" xml:space="preserve"><value>未检查</value></data>
+  <data name="Presence.Present" xml:space="preserve"><value>已发现</value></data>
+  <data name="Presence.Missing" xml:space="preserve"><value>未发现</value></data>
+  <data name="Presence.Unknown" xml:space="preserve"><value>未确认</value></data>
+  <data name="Difference.NewProblem" xml:space="preserve"><value>新出现</value></data>
+  <data name="Difference.Resolved" xml:space="preserve"><value>已解决</value></data>
+  <data name="Difference.Persistent" xml:space="preserve"><value>持续存在</value></data>
+  <data name="Difference.StatusChanged" xml:space="preserve"><value>状态变化</value></data>
+  <data name="Difference.NotComparable" xml:space="preserve"><value>不可比较</value></data>
+  <data name="Difference.ToolAdded" xml:space="preserve"><value>工具新增</value></data>
+  <data name="Difference.ToolRemoved" xml:space="preserve"><value>工具消失</value></data>
+  <data name="Edition.Installed" xml:space="preserve"><value>安装版</value></data>
+  <data name="Edition.Portable" xml:space="preserve"><value>便携版</value></data>
+  <data name="Edition.Controlled" xml:space="preserve"><value>受控数据目录</value></data>
+  <data name="Error.Access" xml:space="preserve"><value>访问被拒绝</value></data>
+  <data name="Error.File" xml:space="preserve"><value>文件读写异常</value></data>
+  <data name="Error.Argument" xml:space="preserve"><value>选项或输入无效</value></data>
+  <data name="Error.Cancelled" xml:space="preserve"><value>操作已取消</value></data>
+  <data name="Error.State" xml:space="preserve"><value>操作状态异常</value></data>
+  <data name="Error.Unexpected" xml:space="preserve"><value>内部错误</value></data>
+  <data name="Common.Appearance" xml:space="preserve"><value>外观</value></data>
+  <data name="Common.Cancel" xml:space="preserve"><value>取消</value></data>
+  <data name="Common.PreviousPage" xml:space="preserve"><value>上一页</value></data>
+  <data name="Common.NextPage" xml:space="preserve"><value>下一页</value></data>
+  <data name="Common.ClipboardUnavailable" xml:space="preserve"><value>剪贴板暂不可用，请稍后重试。</value></data>
+  <data name="Common.ConfirmContinue" xml:space="preserve"><value>确认继续</value></data>
+  <data name="Common.Close" xml:space="preserve"><value>关闭</value></data>
+  <data name="Page.Overview" xml:space="preserve"><value>诊断概览</value></data>
+  <data name="Page.Tools" xml:space="preserve"><value>开发工具</value></data>
+  <data name="Page.Environment" xml:space="preserve"><value>环境变量</value></data>
+  <data name="Page.Issues" xml:space="preserve"><value>问题详情</value></data>
+  <data name="Page.Advanced" xml:space="preserve"><value>高级工具链</value></data>
+  <data name="Page.Project" xml:space="preserve"><value>项目诊断</value></data>
+  <data name="Page.History" xml:space="preserve"><value>历史管理</value></data>
+  <data name="Page.Reports" xml:space="preserve"><value>报告与备份</value></data>
+  <data name="Page.Settings" xml:space="preserve"><value>设置</value></data>
+</root>

@@ -1,0 +1,10 @@
+{
+  "Theme": "Dark",
+  "AppearanceVersion": 1,
+  "ThemePreset": "FluentBlue",
+  "AppearanceMode": "System",
+  "InterfaceStyle": "FluentProfessional",
+  "ScalePercent": 100,
+  "TimeoutSeconds": 10,
+  "RedactPaths": true
+}

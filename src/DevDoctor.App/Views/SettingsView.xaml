@@ -1,0 +1,72 @@
+<UserControl x:Class="DevDoctor.App.Views.SettingsView" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ui="clr-namespace:DevDoctor.Core;assembly=DevDoctor.Core">
+  <StackPanel MaxWidth="980" HorizontalAlignment="Stretch">
+    <TextBlock Text="适合你的工作方式。" FontSize="{DynamicResource TitleFontSize}" LineHeight="38" FontWeight="SemiBold" />
+    <TextBlock Text="六种主题，三种布局风格。更改即时应用，外观与缩放自动保存。" Style="{StaticResource MutedText}" Margin="0,8,0,20" />
+    <Border Style="{StaticResource Card}" Margin="{DynamicResource RowSpacing}">
+      <StackPanel>
+        <DockPanel LastChildFill="True">
+          <Button DockPanel.Dock="Right" Content="恢复默认外观" Command="{Binding RestoreAppearanceDefaultsCommand}" Margin="12,0,0,8" />
+          <StackPanel><TextBlock Text="外观工作室" Style="{StaticResource SectionTitle}" /><TextBlock Text="{Binding QuickAppearanceSummary}" TextWrapping="Wrap" Style="{StaticResource MutedText}" /></StackPanel>
+        </DockPanel>
+        <WrapPanel Margin="0,18,0,12">
+          <StackPanel Margin="0,0,18,12"><TextBlock Text="{x:Static ui:UiText.DisplayMode}" Margin="0,0,0,7" /><ComboBox ItemsSource="{Binding AppearanceModeOptions}" DisplayMemberPath="Label" SelectedValuePath="Value" SelectedValue="{Binding AppearanceMode}" AutomationProperties.Name="外观显示模式：浅色、深色或跟随系统" /></StackPanel>
+          <StackPanel Margin="0,0,18,12"><TextBlock Text="{x:Static ui:UiText.InterfaceStyle}" Margin="0,0,0,7" /><ComboBox ItemsSource="{Binding InterfaceStyleOptions}" DisplayMemberPath="Label" SelectedValuePath="Value" SelectedValue="{Binding InterfaceStyle}" MinWidth="240" AutomationProperties.Name="{x:Static ui:UiText.InterfaceStyle}" /></StackPanel>
+          <StackPanel Margin="0,0,0,12"><TextBlock Text="界面缩放（%）" Margin="0,0,0,7" /><ComboBox ItemsSource="{Binding ScaleOptions}" SelectedItem="{Binding ScalePercent}" MinWidth="105" AutomationProperties.Name="界面缩放百分比" /></StackPanel>
+        </WrapPanel>
+        <TextBlock Text="{x:Static ui:UiText.StyleOverview}" Style="{StaticResource MutedText}" Margin="0,0,0,16" />
+        <ItemsControl x:Name="ThemeCards" ItemsSource="{Binding ThemePreviews}">
+          <ItemsControl.ItemsPanel><ItemsPanelTemplate><WrapPanel /></ItemsPanelTemplate></ItemsControl.ItemsPanel>
+          <ItemsControl.ItemTemplate><DataTemplate>
+            <Button Style="{StaticResource ThemePreviewCard}" Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=ItemsControl}, Converter={StaticResource AppearancePreviewWidth}}"
+                    Command="{Binding DataContext.SelectThemePresetCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}" CommandParameter="{Binding Value}" AutomationProperties.Name="{Binding Label}" ToolTip="{Binding Description}">
+              <StackPanel>
+                <Border Background="{Binding Window}" CornerRadius="{Binding PreviewRadius}" Padding="7" Height="124" ClipToBounds="True">
+                  <Grid>
+                    <Grid.ColumnDefinitions><ColumnDefinition Width="30" /><ColumnDefinition Width="*" /></Grid.ColumnDefinitions>
+                    <Border Background="{Binding Sidebar}" CornerRadius="{Binding PreviewRadius}" Margin="0,0,6,0">
+                      <StackPanel Margin="5,10"><Border Background="{Binding Accent}" Height="10" CornerRadius="2" Margin="0,0,0,9" /><Border Background="{Binding Accent}" Opacity=".3" Height="3" Margin="0,0,0,6" /><Border Background="{Binding Accent}" Opacity=".3" Height="3" Margin="0,0,0,6" /><Border Background="{Binding Accent}" Opacity=".3" Height="3" /></StackPanel>
+                    </Border>
+                    <Grid Grid.Column="1">
+                      <Grid.RowDefinitions><RowDefinition Height="49" /><RowDefinition Height="*" /></Grid.RowDefinitions>
+                      <Border Background="{Binding Hero}" CornerRadius="{Binding PreviewRadius}" ClipToBounds="True">
+                        <Grid><Path Data="{Binding Decoration}" Fill="{Binding DecorationBrush}" Stretch="UniformToFill" HorizontalAlignment="Right" Width="82" /><StackPanel Margin="9,6"><TextBlock Text="DevDoctor" Foreground="{Binding Text}" FontFamily="Segoe UI" FontSize="11" FontWeight="SemiBold" LineHeight="15" /><Border Height="3" Width="65" Background="{Binding Accent}" HorizontalAlignment="Left" CornerRadius="1" Margin="0,5,0,0" /></StackPanel></Grid>
+                      </Border>
+                      <Border Grid.Row="1" Background="{Binding Surface}" CornerRadius="{Binding PreviewRadius}" Padding="{Binding PreviewPadding}" Margin="0,5,0,0">
+                        <Grid><Grid.ColumnDefinitions><ColumnDefinition Width="*" /><ColumnDefinition Width="Auto" /></Grid.ColumnDefinitions><StackPanel><TextBlock Text="诊断证据" Foreground="{Binding Text}" FontSize="10" LineHeight="14" /><Border Background="{Binding Accent}" Height="{Binding PreviewActionHeight}" Width="48" CornerRadius="3" HorizontalAlignment="Left" Margin="0,5,0,0" /></StackPanel><Border Grid.Column="1" Background="{Binding SuccessSurface}" CornerRadius="3" Padding="4,2" VerticalAlignment="Top"><TextBlock Text="✓ 正常" Foreground="{Binding Success}" FontSize="9" LineHeight="12" /></Border></Grid>
+                      </Border>
+                    </Grid>
+                  </Grid>
+                </Border>
+                <DockPanel Margin="2,10,2,0"><TextBlock DockPanel.Dock="Right" Text="✓" Foreground="{DynamicResource AccentBrush}" Visibility="{Binding IsSelected, Converter={StaticResource BoolVisibility}}" Margin="6,0,0,0" /><TextBlock Text="{Binding Label}" TextWrapping="Wrap" FontSize="14" FontFamily="Microsoft YaHei UI,Segoe UI" FontWeight="SemiBold" /></DockPanel>
+                <TextBlock Text="{Binding Description}" Foreground="{DynamicResource MutedBrush}" FontSize="11" Margin="2,3,2,2" />
+              </StackPanel>
+            </Button>
+          </DataTemplate></ItemsControl.ItemTemplate>
+        </ItemsControl>
+        <TextBlock Text="{Binding AppearanceMessage}" Style="{StaticResource MutedText}" AutomationProperties.LiveSetting="Polite" Margin="0,6,0,0" />
+        <TextBlock Text="Windows 屏幕 DPI 与界面缩放叠加。跟随系统会响应 Windows 应用模式；原生文件选择窗口跟随 Windows 外观。" Foreground="{DynamicResource FaintBrush}" FontSize="11" Margin="0,7,0,0" />
+      </StackPanel>
+    </Border>
+    <Border Style="{StaticResource Card}" Margin="{DynamicResource RowSpacing}"><StackPanel>
+      <TextBlock Text="诊断行为" Style="{StaticResource SectionTitle}" /><TextBlock Text="单个命令超时（秒）" Margin="0,15,0,7" />
+      <ComboBox ItemsSource="{Binding TimeoutOptions}" SelectedItem="{Binding TimeoutSeconds}" HorizontalAlignment="Left" AutomationProperties.Name="单命令超时秒数" />
+      <TextBlock Text="每条检测命令都有独立超时。模块另有总时限，一个模块失败不会中断其他检查。运行中的扫描使用开始时的设置。" Style="{StaticResource MutedText}" Margin="0,9,0,0" />
+    </StackPanel></Border>
+    <Border Style="{StaticResource Card}" Margin="{DynamicResource RowSpacing}"><StackPanel>
+      <TextBlock Text="隐私与安全" Style="{StaticResource SectionTitle}" /><CheckBox Content="本地界面中也隐藏用户名与私有路径" IsChecked="{Binding RedactPaths}" Margin="0,13,0,5" />
+      <TextBlock Text="关闭后，完整路径只在本机界面显示。导出与历史记录默认脱敏；分享前请再次检查。" Style="{StaticResource MutedText}" />
+      <Border Height="1" Background="{DynamicResource BorderBrush}" Margin="0,20" />
+      <TextBlock Text="完全在本地运行" FontWeight="SemiBold" /><TextBlock Text="没有账号、遥测或外部诊断服务。只读取开发工具相关环境信息，并运行受限的固定版本命令。" Style="{StaticResource MutedText}" Margin="0,6,0,14" />
+      <TextBlock Text="系统由你掌控" FontWeight="SemiBold" /><TextBlock Text="不修改 PATH、注册表、执行策略或防火墙，不自动安装工具，不读取 Git 凭据与 SSH 私钥。" Style="{StaticResource MutedText}" Margin="0,6,0,0" />
+    </StackPanel></Border>
+    <Border Style="{StaticResource Card}" Margin="{DynamicResource RowSpacing}"><StackPanel>
+      <TextBlock Text="本地数据位置" Style="{StaticResource SectionTitle}" />
+      <TextBox Text="{Binding DataEditionText, Mode=OneWay}" Style="{StaticResource EvidenceBox}" Foreground="{DynamicResource AccentBrush}" FontWeight="SemiBold" Margin="0,7,0,9" AutomationProperties.AutomationId="DataEdition" />
+      <TextBox Text="{Binding DataWorkspacePath, Mode=OneWay}" Style="{StaticResource EvidenceBox}" AutomationProperties.Name="本地数据目录，可选择并复制" AutomationProperties.AutomationId="DataWorkspacePath" />
+      <TextBlock Text="设置、历史与本地恢复点保存在此目录。安装版与便携版使用各自的数据目录。" Style="{StaticResource MutedText}" Margin="0,9,0,5" />
+      <Button Content="打开报告与备份  →" Command="{Binding NavigateCommand}" CommandParameter="Reports" Style="{StaticResource LinkButton}" HorizontalAlignment="Left" />
+    </StackPanel></Border>
+    <Button Content="保存诊断与隐私设置" Command="{Binding SaveSettingsCommand}" Style="{StaticResource PrimaryButton}" HorizontalAlignment="Left" MinWidth="160" />
+    <TextBlock Text="DevDoctor v1.2.0 · C# 14 / .NET 10 / WPF" FontSize="11" Foreground="{DynamicResource FaintBrush}" Margin="0,24,0,0" />
+  </StackPanel>
+</UserControl>

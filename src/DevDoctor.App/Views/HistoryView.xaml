@@ -1,0 +1,43 @@
+<UserControl x:Class="DevDoctor.App.Views.HistoryView" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ui="clr-namespace:DevDoctor.Core;assembly=DevDoctor.Core">
+  <StackPanel DataContext="{Binding History}">
+    <Border Style="{StaticResource HeroCard}" Margin="{DynamicResource RowSpacing}"><Grid><Path Style="{StaticResource HeroDecoration}"/><StackPanel>
+      <TextBlock Text="历史管理 / 有据可查的变化" Style="{StaticResource Eyebrow}"/><TextBlock Text="诊断有迹可循。" FontSize="28" FontWeight="SemiBold"/>
+      <TextBlock Text="{Binding StatisticsText}" Margin="0,12,0,4"/><TextBlock Text="每次诊断按其最严重状态统计。历史默认隐藏路径与凭据，保存在当前版本的本地数据目录。" Style="{StaticResource MutedText}"/>
+      <ItemsControl ItemsSource="{Binding StatusDistribution}" Margin="0,15,0,0"><ItemsControl.ItemsPanel><ItemsPanelTemplate><WrapPanel/></ItemsPanelTemplate></ItemsControl.ItemsPanel><ItemsControl.ItemTemplate><DataTemplate><StackPanel Width="130" Margin="0,0,16,8"><TextBlock Text="{Binding Label}" Style="{StaticResource StatusLabel}"/><ProgressBar Value="{Binding Percent}" Maximum="100" Margin="0,7,0,0" AutomationProperties.Name="历史状态分布"/></StackPanel></DataTemplate></ItemsControl.ItemTemplate></ItemsControl>
+    </StackPanel></Grid></Border>
+    <Border Style="{StaticResource Card}" Margin="{DynamicResource RowSpacing}"><StackPanel>
+      <TextBlock Text="筛选历史" Style="{StaticResource SectionTitle}"/>
+      <TextBlock Text="关键词仅搜索已保存证据的安全显示内容，不扫描新目录；可结合日期、对象和状态筛选。" Style="{StaticResource MutedText}" Margin="0,8,0,6" />
+      <DockPanel LastChildFill="True"><WrapPanel DockPanel.Dock="Right"><Button Content="清空搜索" Command="{Binding ClearSearchCommand}" Margin="8,0,0,0"/><Button Content="取消查询" Command="{Binding CancelQueryCommand}" Margin="8,0,0,0"/></WrapPanel><TextBox Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" MaxLength="256" MinWidth="160" AutomationProperties.Name="历史关键词搜索" ToolTip="搜索工具、规则、中文标题与脱敏证据，输入后点击应用筛选"/></DockPanel>
+      <WrapPanel Margin="0,12,0,0">
+        <StackPanel Margin="0,0,12,10"><TextBlock Text="起始日期" Style="{StaticResource MutedText}"/><DatePicker SelectedDate="{Binding FromDate}" Width="154" AutomationProperties.Name="历史起始日期"/></StackPanel>
+        <StackPanel Margin="0,0,12,10"><TextBlock Text="截至日期（含当天）" Style="{StaticResource MutedText}"/><DatePicker SelectedDate="{Binding UntilDate}" Width="154" AutomationProperties.Name="历史截至日期"/></StackPanel>
+        <StackPanel Margin="0,0,12,10"><TextBlock Text="检测对象" Style="{StaticResource MutedText}"/><TextBox Text="{Binding ObjectFilter, UpdateSourceTrigger=PropertyChanged}" MinWidth="154" AutomationProperties.Name="历史检测对象筛选"/></StackPanel>
+      </WrapPanel>
+      <WrapPanel>
+        <ComboBox ItemsSource="{Binding StatusFilters}" DisplayMemberPath="Label" SelectedValuePath="Value" SelectedValue="{Binding StatusFilter}" MinWidth="128" Margin="0,0,12,10" AutomationProperties.Name="历史状态筛选"/>
+        <ComboBox ItemsSource="{Binding ProjectFilters}" DisplayMemberPath="Label" SelectedValuePath="Value" SelectedValue="{Binding ProjectFilter}" MinWidth="150" Margin="0,0,12,10" AutomationProperties.Name="历史项目类型筛选"/>
+        <ComboBox ItemsSource="{Binding KindFilters}" DisplayMemberPath="Label" SelectedValuePath="Value" SelectedValue="{Binding KindFilter}" MinWidth="130" Margin="0,0,12,10" AutomationProperties.Name="历史诊断类型筛选"/>
+        <Button Content="应用筛选 / 刷新" Command="{Binding RefreshCommand}" Style="{StaticResource PrimaryButton}" Margin="0,0,0,10"/>
+      </WrapPanel>
+      <TextBlock Text="{Binding Message}" AutomationProperties.LiveSetting="Polite" Margin="0,5,0,0"/>
+    </StackPanel></Border>
+    <Border Style="{StaticResource Card}" Margin="{DynamicResource RowSpacing}"><StackPanel>
+      <DockPanel><TextBlock Text="诊断记录" Style="{StaticResource SectionTitle}"/><TextBlock Text="{Binding PageText}" Style="{StaticResource MutedText}" HorizontalAlignment="Right"/></DockPanel>
+      <ListBox ItemsSource="{Binding Rows}" SelectedItem="{Binding SelectedRow}" MaxHeight="440" Margin="0,12,0,14" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" VirtualizingPanel.IsVirtualizing="True" AutomationProperties.Name="历史诊断记录">
+        <ListBox.ItemTemplate><DataTemplate><StackPanel Margin="0,2,0,4"><WrapPanel><TextBlock Text="{Binding Time}" FontWeight="SemiBold" Margin="0,0,14,5"/><ContentControl Content="{Binding}" ContentTemplate="{StaticResource StatusTemplate}"/></WrapPanel><TextBlock Text="{Binding Caption}" Style="{StaticResource MutedText}"/></StackPanel></DataTemplate></ListBox.ItemTemplate>
+      </ListBox>
+      <WrapPanel><Button Content="{x:Static ui:UiText.PreviousPage}" Command="{Binding PreviousCommand}" Margin="0,0,10,8"/><Button Content="{x:Static ui:UiText.NextPage}" Command="{Binding NextCommand}" Margin="0,0,10,8"/><Button Content="删除选中历史…" Command="{Binding DeleteCommand}" Margin="0,0,20,8"/><ComboBox ItemsSource="{Binding RetentionOptions}" SelectedItem="{Binding RetentionDays}" MinWidth="75" Margin="0,0,8,8" AutomationProperties.Name="历史保留天数"/><TextBlock Text="天之前" VerticalAlignment="Center" Margin="0,0,8,8"/><Button Content="清理过期历史…" Command="{Binding PurgeCommand}" Margin="0,0,0,8"/></WrapPanel>
+    </StackPanel></Border>
+    <Border Style="{StaticResource Card}" Margin="{DynamicResource RowSpacing}"><StackPanel>
+      <TextBlock Text="历史对比" Style="{StaticResource SectionTitle}"/><TextBlock Text="{Binding BaselineText}" Style="{StaticResource MutedText}" Margin="0,8,0,12"/>
+      <WrapPanel><Button Content="将选中记录设为基准" Command="{Binding PinBaselineCommand}" Margin="0,0,12,8"/><Button Content="与基准比较" Command="{Binding CompareCommand}" Style="{StaticResource PrimaryButton}" Margin="0,0,0,8"/></WrapPanel>
+      <TextBlock Text="{Binding ComparisonText}" Margin="0,8,0,12"/>
+      <ItemsControl ItemsSource="{Binding Differences}"><ItemsControl.ItemTemplate><DataTemplate><Border Background="{DynamicResource RaisedBrush}" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1" CornerRadius="{DynamicResource SmallRadius}" Padding="{DynamicResource DenseCardPadding}" Margin="{DynamicResource RowSpacing}"><StackPanel><TextBlock Text="{Binding Title}" FontWeight="SemiBold" Foreground="{DynamicResource AccentBrush}"/><TextBlock Text="{Binding Detail}" Margin="0,7,0,0"/></StackPanel></Border></DataTemplate></ItemsControl.ItemTemplate></ItemsControl>
+    </StackPanel></Border>
+    <TextBlock Text="选中记录的完整证据" Style="{StaticResource SectionTitle}"/>
+    <TextBlock Text="{Binding RecordText}" Style="{StaticResource MutedText}" Margin="0,6,0,14"/>
+    <WrapPanel Margin="0,0,0,12"><TextBlock Text="{Binding EvidencePageText}" VerticalAlignment="Center" Margin="0,0,18,8"/><Button Content="上一页证据" Command="{Binding EvidencePreviousCommand}" Margin="0,0,10,8"/><Button Content="下一页证据" Command="{Binding EvidenceNextCommand}" Margin="0,0,0,8"/></WrapPanel>
+    <ItemsControl ItemsSource="{Binding Evidence}" ItemTemplate="{StaticResource HistoryFindingCard}"/>
+  </StackPanel>
+</UserControl>

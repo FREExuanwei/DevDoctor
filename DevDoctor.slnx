@@ -1,0 +1,15 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/DevDoctor.Core/DevDoctor.Core.csproj" />
+    <Project Path="src/DevDoctor.Diagnostics/DevDoctor.Diagnostics.csproj" />
+    <Project Path="src/DevDoctor.Infrastructure/DevDoctor.Infrastructure.csproj" />
+    <Project Path="src/DevDoctor.App/DevDoctor.App.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/DevDoctor.Tests/DevDoctor.Tests.csproj" />
+    <Project Path="tests/DevDoctor.ProbeFixture/DevDoctor.ProbeFixture.csproj" />
+    <Project Path="tests/DevDoctor.UiSmoke/DevDoctor.UiSmoke.csproj" />
+    <Project Path="tests/DevDoctor.AppearanceSmoke/DevDoctor.AppearanceSmoke.csproj" />
+    <Project Path="tests/DevDoctor.UpgradeSmoke/DevDoctor.UpgradeSmoke.csproj" />
+  </Folder>
+</Solution>

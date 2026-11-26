@@ -1,0 +1,89 @@
+<Window x:Class="DevDoctor.App.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ui="clr-namespace:DevDoctor.Core;assembly=DevDoctor.Core"
+        xmlns:shell="clr-namespace:System.Windows.Shell;assembly=PresentationFramework"
+        xmlns:views="clr-namespace:DevDoctor.App.Views"
+        Title="DevDoctor · 开发环境诊断" Icon="{StaticResource AppIcon}" Width="1340" Height="900" MinWidth="900" MinHeight="640"
+        WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="CanResize" Language="zh-CN" AutomationProperties.HelpText="{Binding WorkspaceIdentity}"
+        Background="{DynamicResource WindowBrush}" Foreground="{DynamicResource TextBrush}"
+        FontFamily="Microsoft YaHei UI,Segoe UI" FontSize="{DynamicResource BodyFontSize}" UseLayoutRounding="True" SnapsToDevicePixels="True">
+  <shell:WindowChrome.WindowChrome><shell:WindowChrome CaptionHeight="38" ResizeBorderThickness="6" GlassFrameThickness="0" CornerRadius="10" UseAeroCaptionButtons="False" /></shell:WindowChrome.WindowChrome>
+  <Window.InputBindings><KeyBinding Key="K" Modifiers="Control" Command="{Binding ShowSearchCommand}" /><KeyBinding Key="F5" Command="{Binding RunAllCommand}" /><KeyBinding Key="Escape" Command="{Binding CancelCommand}" /></Window.InputBindings>
+  <Border BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1">
+    <Grid>
+      <Grid.RowDefinitions><RowDefinition Height="38" /><RowDefinition Height="*" /><RowDefinition Height="30" /></Grid.RowDefinitions>
+      <Grid Background="{DynamicResource HeaderBrush}">
+        <TextBlock Text="DevDoctor" FontFamily="Segoe UI" FontWeight="SemiBold" FontSize="12" Margin="18,0" VerticalAlignment="Center" />
+        <TextBlock Text="本地开发环境诊断助手" Foreground="{DynamicResource FaintBrush}" FontSize="11" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" shell:WindowChrome.IsHitTestVisibleInChrome="True">
+          <Button Width="46" MinHeight="36" Padding="0" Background="Transparent" BorderThickness="0" Click="MinimizeClick" AutomationProperties.Name="最小化" ToolTip="最小化"><TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE921;" FontSize="10" /></Button>
+          <Button Width="46" MinHeight="36" Padding="0" Background="Transparent" BorderThickness="0" Click="MaximizeClick" AutomationProperties.Name="最大化或还原" ToolTip="最大化 / 还原"><TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE922;" FontSize="10" /></Button>
+          <Button Width="46" MinHeight="36" Padding="0" Background="Transparent" BorderThickness="0" Click="CloseClick" AutomationProperties.Name="{x:Static ui:UiText.Close}" ToolTip="{x:Static ui:UiText.Close}"><TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE8BB;" FontSize="10" /></Button>
+        </StackPanel>
+      </Grid>
+      <Grid Grid.Row="1" x:Name="Workspace" IsEnabled="{Binding Reports.IsIdle, FallbackValue=True}">
+        <Grid.LayoutTransform><ScaleTransform ScaleX="{Binding UiScale}" ScaleY="{Binding UiScale}" /></Grid.LayoutTransform>
+        <Grid.ColumnDefinitions><ColumnDefinition Width="{DynamicResource SidebarWidth}" /><ColumnDefinition Width="*" /></Grid.ColumnDefinitions>
+        <Border Background="{DynamicResource SidebarBrush}" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="0,0,1,0">
+          <ScrollViewer x:Name="SidebarNavScroll" Margin="{DynamicResource SidebarMargin}" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" CanContentScroll="False">
+          <DockPanel MinHeight="{Binding ViewportHeight, ElementName=SidebarNavScroll}">
+            <StackPanel DockPanel.Dock="Top" Margin="6,0,0,30">
+              <Border Width="40" Height="40" CornerRadius="{DynamicResource CardRadius}" Background="{DynamicResource BrandBrush}" HorizontalAlignment="Left" Margin="0,0,0,14">
+                <Viewbox Margin="8"><Path Data="M 1,12 L 6,12 L 9,3 L 13,21 L 17,9 L 20,12 L 24,12" Stroke="{DynamicResource WindowBrush}" StrokeThickness="2.5" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round" /></Viewbox>
+              </Border>
+              <TextBlock Text="DevDoctor" FontFamily="Segoe UI" FontSize="23" FontWeight="SemiBold" LineHeight="30" />
+              <TextBlock Text="开发环境，心中有数。" FontSize="11" Foreground="{DynamicResource FaintBrush}" Margin="0,5,0,0" />
+            </StackPanel>
+            <StackPanel DockPanel.Dock="Bottom" Margin="8,20,8,0">
+              <Border Background="{DynamicResource SuccessBackground}" CornerRadius="{DynamicResource SmallRadius}" Padding="10,6" HorizontalAlignment="Left"><TextBlock Text="●  本地 · 只读" Foreground="{DynamicResource SuccessBrush}" FontSize="11" /></Border>
+              <TextBlock Text="无需账号 · 无遥测" Foreground="{DynamicResource FaintBrush}" FontSize="11" Margin="0,12,0,0" />
+              <TextBlock Text="v1.2.0  /  Windows x64" Foreground="{DynamicResource FaintBrush}" FontFamily="Segoe UI" FontSize="10" Margin="0,4,0,0" />
+            </StackPanel>
+            <StackPanel>
+              <TextBlock Text="工作区" FontSize="11" Foreground="{DynamicResource FaintBrush}" Margin="14,0,0,10" />
+              <RadioButton Style="{StaticResource NavButton}" GroupName="Navigation" IsChecked="{Binding CurrentPage, Converter={StaticResource PageChecked}, ConverterParameter=Overview, Mode=OneWay}" Command="{Binding NavigateCommand}" CommandParameter="Overview"><StackPanel Orientation="Horizontal"><TextBlock Text="&#xE80F;" FontFamily="Segoe MDL2 Assets" Margin="0,3,13,0" Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=RadioButton}}" /><TextBlock Text="{x:Static ui:UiText.OverviewTitle}" Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=RadioButton}}" /></StackPanel></RadioButton>
+              <RadioButton Style="{StaticResource NavButton}" GroupName="Navigation" IsChecked="{Binding CurrentPage, Converter={StaticResource PageChecked}, ConverterParameter=Tools, Mode=OneWay}" Command="{Binding NavigateCommand}" CommandParameter="Tools"><StackPanel Orientation="Horizontal"><TextBlock Text="&#xE943;" FontFamily="Segoe MDL2 Assets" Margin="0,3,13,0" Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=RadioButton}}" /><TextBlock Text="{x:Static ui:UiText.ToolsTitle}" Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=RadioButton}}" /></StackPanel></RadioButton>
+              <RadioButton Style="{StaticResource NavButton}" GroupName="Navigation" IsChecked="{Binding CurrentPage, Converter={StaticResource PageChecked}, ConverterParameter=Environment, Mode=OneWay}" Command="{Binding NavigateCommand}" CommandParameter="Environment"><StackPanel Orientation="Horizontal"><TextBlock Text="&#xE90F;" FontFamily="Segoe MDL2 Assets" Margin="0,3,13,0" Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=RadioButton}}" /><TextBlock Text="{x:Static ui:UiText.EnvironmentTitle}" Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=RadioButton}}" /></StackPanel></RadioButton>
+              <RadioButton Style="{StaticResource NavButton}" GroupName="Navigation" IsChecked="{Binding CurrentPage, Converter={StaticResource PageChecked}, ConverterParameter=Issues, Mode=OneWay}" Command="{Binding NavigateCommand}" CommandParameter="Issues"><StackPanel Orientation="Horizontal"><TextBlock Text="&#xE7BA;" FontFamily="Segoe MDL2 Assets" Margin="0,3,13,0" Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=RadioButton}}" /><TextBlock Text="{x:Static ui:UiText.IssuesTitle}" Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=RadioButton}}" /></StackPanel></RadioButton>
+              <RadioButton Style="{StaticResource NavButton}" GroupName="Navigation" IsChecked="{Binding CurrentPage, Converter={StaticResource PageChecked}, ConverterParameter=Advanced, Mode=OneWay}" Command="{Binding NavigateCommand}" CommandParameter="Advanced"><StackPanel Orientation="Horizontal"><TextBlock Text="&#xE943;" FontFamily="Segoe MDL2 Assets" Margin="0,3,13,0" Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=RadioButton}}" /><TextBlock Text="{x:Static ui:UiText.AdvancedTitle}" Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=RadioButton}}" /></StackPanel></RadioButton>
+              <RadioButton Style="{StaticResource NavButton}" GroupName="Navigation" IsChecked="{Binding CurrentPage, Converter={StaticResource PageChecked}, ConverterParameter=Project, Mode=OneWay}" Command="{Binding NavigateCommand}" CommandParameter="Project"><StackPanel Orientation="Horizontal"><TextBlock Text="&#xE8B7;" FontFamily="Segoe MDL2 Assets" Margin="0,3,13,0" Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=RadioButton}}" /><TextBlock Text="{x:Static ui:UiText.ProjectTitle}" Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=RadioButton}}" /></StackPanel></RadioButton>
+              <RadioButton Style="{StaticResource NavButton}" GroupName="Navigation" IsChecked="{Binding CurrentPage, Converter={StaticResource PageChecked}, ConverterParameter=History, Mode=OneWay}" Command="{Binding NavigateCommand}" CommandParameter="History" AutomationProperties.Name="{x:Static ui:UiText.HistoryTitle}"><StackPanel Orientation="Horizontal"><TextBlock Text="&#xE81C;" FontFamily="Segoe MDL2 Assets" Margin="0,3,13,0" Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=RadioButton}}"/><TextBlock Text="{x:Static ui:UiText.HistoryTitle}" Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=RadioButton}}"/></StackPanel></RadioButton>
+              <RadioButton Style="{StaticResource NavButton}" GroupName="Navigation" IsChecked="{Binding CurrentPage, Converter={StaticResource PageChecked}, ConverterParameter=Reports, Mode=OneWay}" Command="{Binding NavigateCommand}" CommandParameter="Reports" AutomationProperties.Name="{x:Static ui:UiText.ReportsTitle}"><StackPanel Orientation="Horizontal"><TextBlock Text="&#xE8A5;" FontFamily="Segoe MDL2 Assets" Margin="0,3,13,0" Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=RadioButton}}"/><TextBlock Text="{x:Static ui:UiText.ReportsTitle}" Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=RadioButton}}"/></StackPanel></RadioButton>
+              <Border Height="1" Background="{DynamicResource BorderBrush}" Margin="14,20" />
+              <RadioButton Style="{StaticResource NavButton}" GroupName="Navigation" IsChecked="{Binding CurrentPage, Converter={StaticResource PageChecked}, ConverterParameter=Settings, Mode=OneWay}" Command="{Binding NavigateCommand}" CommandParameter="Settings" AutomationProperties.AutomationId="NavigationSettings"><StackPanel Orientation="Horizontal"><TextBlock Text="&#xE713;" FontFamily="Segoe MDL2 Assets" Margin="0,3,13,0" Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=RadioButton}}" /><TextBlock Text="{x:Static ui:UiText.SettingsTitle}" Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=RadioButton}}" /></StackPanel></RadioButton>
+            </StackPanel>
+          </DockPanel></ScrollViewer>
+        </Border>
+        <Grid Grid.Column="1">
+          <Grid.RowDefinitions><RowDefinition Height="Auto" /><RowDefinition Height="*" /></Grid.RowDefinitions>
+          <WrapPanel Margin="{DynamicResource PageHeaderMargin}" VerticalAlignment="Center">
+            <StackPanel Width="218" Margin="0,0,16,10"><TextBlock Text="工作区 / 本地诊断" FontSize="11" Foreground="{DynamicResource FaintBrush}" /><TextBlock Text="{Binding PageTitle}" FontSize="23" FontWeight="SemiBold" LineHeight="32" /></StackPanel>
+            <WrapPanel VerticalAlignment="Center" Margin="0,6,0,10">
+              <Button Content="搜索当前结果" Click="SearchClick" Command="{Binding ShowSearchCommand}" Margin="0,0,8,0" ToolTip="搜索当前诊断（Ctrl+K）" AutomationProperties.Name="搜索当前诊断结果" AutomationProperties.AutomationId="CurrentSearchButton" /><Button x:Name="AppearanceButton" Command="{Binding ToggleAppearancePanelCommand}" Margin="0,0,8,0" ToolTip="主题、显示模式与界面风格（即时应用并自动保存）" AutomationProperties.Name="快捷外观：主题、模式与风格" AutomationProperties.AutomationId="QuickAppearanceButton"><StackPanel Orientation="Horizontal"><Path Data="M 9,1 C 3,1 1,5 1,9 C 1,14 5,17 9,17 C 12,17 11,13 14,13 C 18,13 18,8 16,5 C 14,2 12,1 9,1 Z M 5,6 L 5.1,6 M 9,4 L 9.1,4 M 13,6 L 13.1,6" Stroke="{DynamicResource TextBrush}" StrokeThickness="1.5" Width="17" Height="17" Stretch="Uniform" /><TextBlock Text="{x:Static ui:UiText.Appearance}" Margin="6,0,5,0" /><TextBlock Text="⌄" FontSize="11" /></StackPanel></Button>
+              <Popup x:Name="AppearancePopup" IsOpen="{Binding IsAppearanceOpen, Mode=TwoWay}" DataContext="{Binding DataContext, ElementName=AppearanceButton}" PlacementTarget="{Binding ElementName=AppearanceButton}" Placement="Custom" AllowsTransparency="True" StaysOpen="False" Opened="AppearancePopupOpened" Closed="AppearancePopupClosed" PopupAnimation="None">
+                <!-- WPF carries the workspace layout transform into the popup window. -->
+                <views:AppearanceQuickPanel x:Name="AppearancePanel" PreviewKeyDown="AppearancePanelKeyDown" />
+              </Popup>
+              <Button Content="复制脱敏报告" Command="{Binding CopyReportCommand}" Margin="0,0,8,0" />
+              <Button Content="{x:Static ui:UiText.Cancel}" Command="{Binding CancelCommand}" Visibility="{Binding IsRunning, Converter={StaticResource BoolVisibility}}" Margin="0,0,8,0" />
+              <Button Content="{Binding RunButtonText}" Command="{Binding RunAllCommand}" Style="{StaticResource PrimaryButton}" ToolTip="完整诊断（F5）" AutomationProperties.Name="开始或重新完整诊断" />
+            </WrapPanel>
+          </WrapPanel>
+          <ScrollViewer Grid.Row="1" x:Name="MainScroll" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" PanningMode="VerticalOnly" CanContentScroll="False">
+            <Grid Margin="{DynamicResource PagePadding}">
+              <views:SearchView x:Name="CurrentSearchView" Visibility="{Binding CurrentPage, Converter={StaticResource PageVisibility}, ConverterParameter=Search}" /><views:OverviewView Visibility="{Binding CurrentPage, Converter={StaticResource PageVisibility}, ConverterParameter=Overview}" />
+              <views:ToolsView Visibility="{Binding CurrentPage, Converter={StaticResource PageVisibility}, ConverterParameter=Tools|Advanced|Environment}" />
+              <views:ProjectView Visibility="{Binding CurrentPage, Converter={StaticResource PageVisibility}, ConverterParameter=Project}" />
+              <views:IssuesView Visibility="{Binding CurrentPage, Converter={StaticResource PageVisibility}, ConverterParameter=Issues}" />
+              <views:HistoryView Visibility="{Binding CurrentPage, Converter={StaticResource PageVisibility}, ConverterParameter=History}" />
+              <views:ReportsView Visibility="{Binding CurrentPage, Converter={StaticResource PageVisibility}, ConverterParameter=Reports}" />
+              <views:SettingsView Visibility="{Binding CurrentPage, Converter={StaticResource PageVisibility}, ConverterParameter=Settings}" />
+            </Grid>
+          </ScrollViewer>
+        </Grid>
+      </Grid>
+      <Border Grid.Row="2" Background="{DynamicResource SidebarBrush}" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="0,1,0,0" Padding="16,3">
+        <DockPanel><TextBlock DockPanel.Dock="Right" Text="C# 14  ·  .NET 10" FontSize="10" Foreground="{DynamicResource FaintBrush}" Margin="16,0,0,0" /><TextBlock Text="{Binding StatusMessage}" FontSize="11" Foreground="{DynamicResource MutedBrush}" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap" AutomationProperties.LiveSetting="Polite" /></DockPanel>
+      </Border>
+    </Grid>
+  </Border>
+</Window>

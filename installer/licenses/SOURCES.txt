@@ -1,0 +1,11 @@
+License source: https://raw.githubusercontent.com/ericsink/SQLitePCL.raw/master/LICENSE.TXT
+Fetched: 2026-10-22 (UTC)
+The exact installed 2.1.13 NuGet metadata declares Apache-2.0 and identifies
+SourceGear, LLC as copyright holder. The upstream repository has no v2.1.13
+tag at retrieval time; this file contains the unmodified standard Apache 2.0
+text from the official repository. Each package's exact .nuspec metadata is
+also retained in the release licenses folder.
+
+Native SQLite's public-domain status:
+https://www.sqlite.org/copyright.html
+SQLitePCLRaw's package-specific Apache-2.0 declaration is retained as well.

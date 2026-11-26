@@ -1,0 +1,7 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <ResourceDictionary.MergedDictionaries>
+    <ResourceDictionary Source="Semantic/Light.xaml" />
+    <ResourceDictionary Source="Presets/FluentBlue.Light.xaml" />
+    <ResourceDictionary Source="Styles/FluentProfessional.xaml" />
+  </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>
